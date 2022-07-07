@@ -1,19 +1,25 @@
 from pynput.keyboard import Listener
-from listener.helperTwo import on_release
+from listener.helper import outer
 import threading
-from learner.learnerTwo import parse_text
+import multiprocessing
+from learner.learner import parse_text
 
+text_queue = multiprocessing.Queue()
 
-translator_thread = threading.Thread (
-    target=parse_text,
-    args=('我很高兴认识你',)
-    )
-translator_thread.start()
-translator_thread.join()
+if __name__ == "__main__":
+
+    translator_thread = multiprocessing.Process (
+        target=parse_text,
+        args=(text_queue,)
+        )
+    translator_thread.start()
+
 
 
 # Continual listening process
-with Listener(
-       on_release=on_release,
-       ) as listener:
-    listener.join()
+listener = Listener(
+       on_release=outer(text_queue),
+        )
+listener.start()
+
+
