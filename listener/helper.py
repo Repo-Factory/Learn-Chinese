@@ -1,7 +1,7 @@
 import pyautogui
 import win32clipboard
 from pynput.keyboard import Key
-import time
+from time import sleep
 
 
 def copy_highlighted():
@@ -11,10 +11,21 @@ def copy_highlighted():
 
 
 def retrieve_clipboard():
-    win32clipboard.OpenClipboard()
+    OpenClipboard(100, .01)
     data = win32clipboard.GetClipboardData()
     win32clipboard.CloseClipboard()
     return data
+
+
+def OpenClipboard(retries, delay):
+    while True:
+        try:
+            return win32clipboard.OpenClipboard()
+        except Exception as e:
+            if e.winerror!=5 or retries==0:
+                raise
+            retries = retries - 1
+            sleep(delay)
 
 
 def wrapper(queue, event):
