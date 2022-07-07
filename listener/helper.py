@@ -1,9 +1,7 @@
 import pyautogui
 import win32clipboard
 from pynput.keyboard import Key
-import multiprocessing
-
-
+import time
 
 
 def copy_highlighted():
@@ -19,7 +17,7 @@ def retrieve_clipboard():
     return data
 
 
-def outer(queue):
+def wrapper(queue, event):
     def on_release(key):
         if key == Key.esc:
             exit()
@@ -28,6 +26,7 @@ def outer(queue):
             data = retrieve_clipboard()
             print(data)
             queue.put(data)
+            event.set()
         return queue
     return on_release
 

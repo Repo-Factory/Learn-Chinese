@@ -1,24 +1,27 @@
 from pynput.keyboard import Listener
-from listener.helper import outer
+from listener.helper import wrapper
 import threading
-import multiprocessing
-from learner.learner import parse_text
+from translator.translator import parse_text
+from queue import Queue
+from threading import Lock
+from threading import Event
 
-text_queue = multiprocessing.Queue()
+event = Event()
+text_queue = Queue()
+#put_lock = Lock()
+#get_lock = Lock()
 
-if __name__ == "__main__":
-
-    translator_thread = multiprocessing.Process (
-        target=parse_text,
-        args=(text_queue,)
-        )
-    translator_thread.start()
-
+translator_thread = threading.Thread (
+    target=parse_text,
+    args=(text_queue, event)
+    )
+translator_thread.start()
 
 
 # Continual listening process
+
 listener = Listener(
-       on_release=outer(text_queue),
+       on_release=wrapper(text_queue, event),
         )
 listener.start()
 
