@@ -1,8 +1,4 @@
 from translator.translator import process_text
-from translator.translator import create_analyzer
-
-
-analyzer = create_analyzer()
 
 
 def main(queue, event):
@@ -10,5 +6,8 @@ def main(queue, event):
         event.wait()
         if queue.empty() is False:
             string = queue.get()
-            process_text(string, analyzer)
+            if string == 'exit code: FC789456':
+                exit()
+            else:
+                process_text(string)
             event.clear()

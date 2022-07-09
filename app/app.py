@@ -3,7 +3,7 @@ from threading import Thread
 from threading import Event
 from queue import Queue
 from listener.helper import wrapper
-from main.main import main
+from responder.responder import main
 
 
 queue_event = Event()
@@ -20,6 +20,7 @@ translator_thread.start()
 listener = Listener(
        on_release=wrapper(text_queue, queue_event),
         )
+listener.daemon = True
 listener.start()
 
 
