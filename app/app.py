@@ -1,3 +1,12 @@
+'''
+app.py is the starting point for the program where the threads are initiated
+There is a listener thread and a main thread which responds
+to the information taken in by the listener and its helper methods.
+The listener will place information into the queue when the assigned key is pressed
+When this event occurs, the main thread will the translator methods to return translated chinese
+
+'''
+
 from pynput.keyboard import Listener
 from threading import Thread
 from threading import Event

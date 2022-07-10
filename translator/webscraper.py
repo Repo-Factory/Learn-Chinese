@@ -12,6 +12,7 @@ forbidden_characters = [']', '[', '、', '!', '？', '>', '<', '|', '?', ' ', ':
                             '7', '8', '9', '0']
 
 
+# translate online continues if pages exists and the input is chinese (not forbidden)
 def error_free(character):
     forbidden_characters_list = forbidden_characters
     for forbidden_character in forbidden_characters_list:
@@ -22,6 +23,7 @@ def error_free(character):
     return True
 
 
+# makes request to site with specific character, if page doesn't exist, translation will not continue
 def verify_html(character):
     verified = True
     html = requests.get(f'{url}{character}')
@@ -32,6 +34,7 @@ def verify_html(character):
     return verified
 
 
+# returns html page or error message
 def request_html(character):
     html = requests.get(f'{url}{character}')
     try:
@@ -42,75 +45,58 @@ def request_html(character):
     return html
 
 
+# beautiful soup parses html
 def parse_html(html):
     parsed_html = bs4.BeautifulSoup(html.text, 'lxml')
-    desired_html = parsed_html.findAll(lambda tag: tag.name == 'div' and tag.get('class') == ['meaning'])
-    #test_desired_html = parsed_html.findAll(lambda tag: tag.name == 'span' and tag.get('class') == ['pinyin'])
-    #desired_html = parsed_html.findAll(lambda tag: tag.name == 'div' and tag.get('class') == ['definition'])
-    return desired_html
+    return parsed_html
 
 
-def choose_tag(tag_list, pinyin):
+# takes in info of specific tag that wants to be scraped and returns those tags
+def produce_tags(parsed_html, tag_type, tag_get, tag_name):
+    tag_list = []
+    needed_tags = parsed_html.findAll(lambda tag: tag.name == f'{tag_type}' and tag.get(f'{tag_get}') == [f'{tag_name}'])
+    for needed_tag in needed_tags:
+        tag_list.append(needed_tag.text)
+    return tag_list
+
+
+# specific to yabla page, formats strings based on how they are presented in the html,
+# returns one string with words separated only by commas and a space
+def format_translation_yabla(tag_list):
+    formatted_tag_list = []
     for tag in tag_list:
-        if tag.__contains__(f'\n{pinyin}\n'):
-            return tag
+        tag_string = tag.replace('\n', ', ')
+        formatted_tag_list.append(tag_string)
+    return ', '.join(formatted_tag_list)
 
 
-def get_definitions(desired_html):
-    text_list = []
-    for html_tag in desired_html[0:2]:
-        text = html_tag.getText()
-        text_list.append(text)
-    return text_list
-
-
-def format_commas(definitions_string):
-    final_string_list = []
-    final_string = ''
-    for definition in definitions_string:
-        definition = definition.replace('\n', ', ')
-        final_string_list.append(definition)
-    for string in final_string_list:
-        if string != final_string_list[-1]:
-            final_string += string + ', '
-        else:
-            final_string += string
-    return final_string
-
-
-def limit_definitions(definitions_string):
-    final_string_commas_index = []
-    final_string = definitions_string
-    for pos, char in enumerate(final_string):
+# cuts string down to the number of definitions desired, passed in in parse_text
+def limit_string(string, string_number):
+    commas_index = []
+    for pos, char in enumerate(string):
         if char == ',':
-            final_string_commas_index.append(pos)
-    try:
-        final_string = final_string[0:final_string_commas_index[1]]
-    except Exception as exc:
-        pass
+            commas_index.append(pos)
+    string_produced = False
+    i = string_number
+    while string_produced is False and i > 0:
         try:
-            final_string = final_string[0:final_string_commas_index[0]]
+            string = string[0: commas_index[i - 1]]
+            string_produced = True
         except Exception as exc:
-            pass
-    #        try:
-    #            final_string = final_string[0:final_string_commas_index[0]]
-    #        except Exception as exc:
-    #            return final_string
-    return final_string
+            i = i - 1
+    return string
 
 
-def format_definition(definitions):
-    final_string = format_commas(definitions)
-    final_string = limit_definitions(final_string)
-    return final_string
-
-
-def webscrape(character):
+# calls all related webscraping functions
+def webscrape(character, string_number):
     html = request_html(character)
-    desired_html = parse_html(html)
-    text_list = get_definitions(desired_html)
-    text = format_definition(text_list)
-    return text
+    parsed_html = parse_html(html)
+    tags = produce_tags(parsed_html, 'div', 'class', 'meaning')
+    translations = format_translation_yabla(tags)
+    translation = limit_string(translations, string_number)
+    return translation
+
+
 
 
 
