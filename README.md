@@ -2,6 +2,7 @@
     # #RUN PROGRAM FROM TERMINAL, HIGHLIGHT THIS TEXT, PRESS LEFT ALT KEY  
     #                           我喜歡這個味道
 
+
 On Screen Translator - Chinese Learning Assistance Tool
 
 
@@ -27,3 +28,17 @@ I acquire by web scraping a chinese dictionary that I like (yabla). The program 
 to scrape from other chinese databases, and the number of desired translations can be chosen 
 through the settings.py file in the app module
 
+
+
+DEPENDENCIES AND STYSTEM REQUIREMENTS
+
+As of now I can only guarantee that the program will run on Windows, provided python3 is installed. 
+Because of the key logging functionality, I haven't been able to get everything to work out of the 
+box for linux (I've only tried using WSL server - Ubuntu 20.04). Theoretically pynput works with linux
+but there are some setup requirements. Even after getting an X server properly running for GUI functions
+the program wasn't logging the keys. I'm going to keep working on that But I have proven that but the program works following these steps:
+
+- Have python3 installed without issues on a Windows computer
+- Create new directory and copy in app.py as well as the files in the root directory of this project
+- Create a virtual environment and run python -m pip install -r requirements.txt
+- Manually run python -m pip install pynput and python -m pip install lxml

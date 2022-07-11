@@ -1,6 +1,8 @@
-#syntax=docker/dockerfile:1
+#syntax=docker/dockerfile:
 
-FROM python:3.8-slim-buster
+# pynput won't work properly with linux base image, I don't have the system 
+# requirements to use windows hypervisor to access windows docker base image
+FROM winamd64/python:3
 
 WORKDIR C:\Users\Conner\PycharmProjects\learn-chinese
 
