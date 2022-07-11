@@ -1,8 +1,8 @@
 from chinese import ChineseAnalyzer
 import pinyin
-from translator.webscraper import webscrape
 from googletrans import Translator
-from translator.webscraper import error_free
+from app.translator.webscraper import error_free
+from app.translator.webscraper import webscrape
 
 
 translator = Translator()  # google translate object
@@ -28,9 +28,12 @@ def request_google(string):
     return translation
 
 
-# gives 2nd translation for each word (token combination) by webscraping
-def translate(character):
-    translation = webscrape(character)
+# gives 2nd (or more) translation(s) for each word (token combination) by webscraping
+def translate(character, num_definitions):
+    if character == '了':
+        translation = 'Particle indicating action has taken place'
+    else:
+        translation = webscrape(character, num_definitions)
     return translation
 
 
@@ -45,8 +48,8 @@ def process_text(string):
         else:
             character = token
             pinyin_text = pinyin.get(token)
-            translations = webscrape(character, 1)
+            translations = translate(character, 1)
             google_translation = request_google(character)
             print(f'{character}  -  {pinyin_text}  -  {google_translation} | {translations}\n')
-
+    print('\n\n\n translation complete....')
 
