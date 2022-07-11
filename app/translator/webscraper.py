@@ -1,8 +1,10 @@
 import requests, bs4
+from app.settings import Settings
 
+# URL needed to check if chinese character exists in verify_html 
+# (I also use it for the web scrape but the webscrape function can adapt to a different site)
+error_validation_url = 'https://chinese.yabla.com/chinese-english-pinyin-dictionary.php?define='
 
-# error validation URL
-url = 'https://chinese.yabla.com/chinese-english-pinyin-dictionary.php?define='
 
 forbidden_characters = [']', '[', '、', '!', '？', '>', '<', '|', '?', ' ', ':', '@', '#', '$', '%', '^', '&', '*',
                             '+', '_', '-', '{', '}',  '(', ')','=', "'", '。', '，', ',', '.', 'A', 'B', 'C', 'D', 'E',
@@ -18,7 +20,7 @@ def error_free(character):
     for forbidden_character in forbidden_characters_list:
         if forbidden_character in str(character):
             return False
-    if not verify_html(url, character):
+    if not verify_html(error_validation_url, character):
         return False
     return True
 
@@ -70,7 +72,8 @@ def format_translations_yabla(tag_list):
     return ', '.join(formatted_tag_list)
 
 
-# cuts string down to the number of definitions desired by counting commas
+# cuts string down to the number of definitions desired, must be passed a string of words 
+# separated by commas to work correctly, so the formatting function is important
 def limit_string(string, string_number):
     commas_index = []
     for pos, char in enumerate(string):
@@ -104,16 +107,31 @@ def webscrape_mule(url, character, tag_type, tag_attr, tag_name, format_translat
 # page, but in case I (or someone else) would like to scrape a different site for definitions
 # this is the function where all the necessary values can be changed; a unique formatting
 # function will have to be created because not all tag text from beautiful soup html
-# will be in the desired format for displaying translations
+# will be in the desired format for displaying translations. I put a general format translations
+# function at the bottom that works pretty well for most cases, but it can't be perfect, depending
+# on the site layout
 def webscrape(character, string_number):
     translation = webscrape_mule(
-          url='https://chinese.yabla.com/chinese-english-pinyin-dictionary.php?define=',
+          url=Settings.url,
           character=f'{character}',
-          tag_type='div',
-          tag_attr='class',
-          tag_name='meaning',
-          format_translations=format_translations_yabla,
+          tag_type=Settings.tag_type,
+          tag_attr=Settings.tag_attr,
+          tag_name=Settings.tag_name,
+          format_translations=Settings.format,
           string_number=string_number,
           )
     return translation
 
+
+
+'''
+def format_translations(tag_list):
+    formatted_tag_list = []
+    for tag in tag_list:
+        tag_string = tag.replace('\n', ' ')
+        tag_string = tag_string.replace(',', ' ')
+        tag_string = tag_string.replace('  ', ' ')
+        tag_string = tag_string.replace(' ', ', ')
+        formatted_tag_list.append(tag_string)
+    return ', '.join(formatted_tag_list)
+'''

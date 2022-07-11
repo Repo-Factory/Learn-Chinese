@@ -3,6 +3,7 @@ import pinyin
 from googletrans import Translator
 from app.translator.webscraper import error_free
 from app.translator.webscraper import webscrape
+from app.settings import Settings
 
 
 translator = Translator()  # google translate object
@@ -30,7 +31,11 @@ def request_google(string):
 
 # gives 2nd (or more) translation(s) for each word (token combination) by webscraping
 def translate(character, num_definitions):
-    if character == '了':
+    if character == '了':   # some abstract words have terrible translations online; 
+                            # ideally I would have a database for common words that  
+                            # are incorrectly translated where definitions could be  
+                            # retrieved but for now I just have a collection of
+                            # if statements for ones that have bothered me 
         translation = 'Particle indicating action has taken place'
     else:
         translation = webscrape(character, num_definitions)
@@ -48,7 +53,7 @@ def process_text(string):
         else:
             character = token
             pinyin_text = pinyin.get(token)
-            translations = translate(character, 1)
+            translations = translate(character, Settings.desired_translations)
             google_translation = request_google(character)
             print(f'{character}  -  {pinyin_text}  -  {google_translation} | {translations}\n')
     print('\n\n\n translation complete....')

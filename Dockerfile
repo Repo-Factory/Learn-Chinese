@@ -2,12 +2,20 @@
 
 FROM python:3.8-slim-buster
 
-WORKDIR /C:\Users\Conner\PycharmProjects\learn-chinese\app.app
+WORKDIR C:\Users\Conner\PycharmProjects\learn-chinese
 
 COPY requirements.txt requirements.txt
 
 RUN pip install -r requirements.txt
 
-COPY . .
+RUN python -m install pynput
 
-CMD [ "python", "m", "app.app", "--host=0.0.0.0"]
+RUN pip install lxml
+
+COPY . C:\Users\Conner\PycharmProjects\learn-chinese
+
+ENV PYTHONPATH "${PYTHONPATH}:C:\Users\Conner\PycharmProjects\learn-chinese"
+
+CMD [ "python", "m", "app.main", "--host=0.0.0.0"]
+
+
