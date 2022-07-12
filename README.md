@@ -6,7 +6,7 @@
 On Screen Translator - Chinese Learning Assistance Tool
 
 
-欢迎光临! ['welcome' for the uncultured ;)] This is an app designed to assist language students
+欢迎光临! [ 'welcome' for the uncultured ;) ] This is an app designed to assist language students
 in learning chinese (that could also be easily adapted for another language). 
 
 Reading is an important part of learning a language, but personally I get frustrated reading when 
@@ -17,7 +17,7 @@ symbol
 
 That's why I made this language-learning tool... I thought it would be cool if every time i saw an
 unknown word, that I could just highlight it with my mouse, press a button, and have another window 
-on the screen that would instantly show the translation.
+on the screen that would instantly show the word-by-word translation.
 
 This program has a key listener that waits for a key press (in my case the left alt key) Once pressed, 
 the highlighted text on the screen will be copied, error-checked(filtered), and translated. I like having
@@ -42,3 +42,6 @@ the program wasn't logging the keys. I'm going to keep working on that But I hav
 - Create new directory and copy in app.py as well as the files in the root directory of this project
 - Create a virtual environment and run python -m pip install -r requirements.txt
 - Manually run python -m pip install pynput and python -m pip install lxml
+
+If someone theoretically wanted to install the program, I wrote a series of batch scripts to automate setting up the project. If the user already had python3 installed on a windows machine everything could theoretically be set up in less than 5 minutes. Simply pull the
+code from GitHub and double click the install.bat file. When it's done running, a terminal window inside the activated virtual environment will be on the screen, and all you have to do is type in install2 in the cmd. After that it will install all dependencies and run the program automatically.
