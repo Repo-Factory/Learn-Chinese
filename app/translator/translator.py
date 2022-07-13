@@ -22,21 +22,18 @@ def request_google(string):
     try:
         translation = translator.translate(string).text
     except Exception as exc:
-        try:
-            translation = translator.translate(string, src='zh-tw', dest='en').text
-        except Exception as exc:
-            translation = ''
+        translation = ''
     return translation
 
 
 # gives 2nd (or more) translation(s) for each word (token combination) by webscraping
 def translate(character, num_definitions):
-    if character == '了':   # some abstract words have terrible translations online; 
-                            # ideally I would have a database for common words that  
-                            # are incorrectly translated where definitions could be  
-                            # retrieved but for now I just have a collection of
-                            # if statements for ones that have bothered me 
-        translation = 'Particle indicating action has taken place'
+    character_list = { '了' : 'Particle indicating action has taken place',
+                       '有' : 'There are/is',
+                       '我' : 'I',               # list of common connecter words that 
+                     }                           # don't translate well online
+    if character in character_list:
+        translation = character_list[character]
     else:
         translation = webscrape(character, num_definitions)
     return translation
@@ -44,11 +41,10 @@ def translate(character, num_definitions):
 
 # gathers character, pinyin, and multiple english translations and prints them to the screen with appropriate spacing
 def process_text(string):
-    print(request_google(string))
-    print('\n')
+    print_full_trans(string)        # prints full translation before word-for-word
     token_list = parse_text(string)
     for token in token_list:
-        if not error_free(token) or token is None or token == ' ' or '\n' in token or token == '':
+        if not error_free(token) or token is None or token == ' ' or token == '' or '\n' in token:
             continue
         else:
             character = token
@@ -56,5 +52,14 @@ def process_text(string):
             translations = translate(character, Settings.desired_translations)
             google_translation = request_google(character)
             print(f'{character}  -  {pinyin_text}  -  {google_translation} | {translations}\n')
-    print('\n\n\n translation complete....')
+    print_complete()
 
+
+# print helpers
+def print_full_trans(string):
+    print(request_google(string))
+    print('\n')
+
+
+def print_complete():
+    print('\n\n\n translation complete....')

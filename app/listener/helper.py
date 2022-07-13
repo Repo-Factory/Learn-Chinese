@@ -40,6 +40,13 @@ def helper():
     return data
 
 
+# print helpers
+def print_full_trans():
+    print('\n')
+
+
+def print_complete():
+    print('\n\n\n translation complete....')
 
 
 

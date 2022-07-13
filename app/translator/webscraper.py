@@ -62,15 +62,19 @@ def produce_tags(parsed_html, tag_type, tag_attr, tag_name):
     return tag_list
 
 
-# specific to yabla page, formats strings based on how they are presented in the html,
-# returns one string with words separated only by commas and a space
-def format_translations_yabla(tag_list):
+# General formatting function for strings to clean up how they are presented in the html,
+# returns one string with words separated only by commas and a space. This function does an
+# okay job for general cleaning but it's best to use a custom function made in settings.py
+# to make the formatting specific to how the tags come out for the specific webscrape
+def format_translations(tag_list):
     formatted_tag_list = []
     for tag in tag_list:
-        tag_string = tag.replace('\n', ', ')
+        tag_string = tag.replace('\n', ' ')
+        tag_string = tag_string.replace(',', ' ')
+        tag_string = tag_string.replace('  ', ' ')
+        tag_string = tag_string.replace(' ', ', ')
         formatted_tag_list.append(tag_string)
     return ', '.join(formatted_tag_list)
-
 
 # cuts string down to the number of definitions desired, must be passed a string of words 
 # separated by commas to work correctly, so the formatting function is important
@@ -121,17 +125,3 @@ def webscrape(character, string_number):
           string_number=string_number,
           )
     return translation
-
-
-
-'''
-def format_translations(tag_list):
-    formatted_tag_list = []
-    for tag in tag_list:
-        tag_string = tag.replace('\n', ' ')
-        tag_string = tag_string.replace(',', ' ')
-        tag_string = tag_string.replace('  ', ' ')
-        tag_string = tag_string.replace(' ', ', ')
-        formatted_tag_list.append(tag_string)
-    return ', '.join(formatted_tag_list)
-'''

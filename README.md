@@ -1,13 +1,12 @@
     # **********************TO SEE PROGRAM SAMPLE***********************,
-    # #RUN PROGRAM FROM TERMINAL, HIGHLIGHT THIS TEXT, PRESS LEFT ALT KEY  
+    #     INSTALL PROGRAM, HIGHLIGHT THIS TEXT, PRESS LEFT ALT KEY  
     #                           我喜歡這個味道
 
 
 On Screen Translator - Chinese Learning Assistance Tool
 
 
-欢迎光临! [ 'welcome' for the uncultured ;) ] This is an app designed to assist language students
-in learning chinese (that could also be easily adapted for another language). 
+欢迎光临! [ 'welcome' for those who haven't used this app ;) ] This is an app designed to assist language studentsin learning chinese (that could also be easily adapted for another language). 
 
 Reading is an important part of learning a language, but personally I get frustrated reading when 
 every sentence I encounter a word I've never seen before. I have to copy the word or phrase, and 
@@ -19,9 +18,7 @@ That's why I made this language-learning tool... I thought it would be cool if e
 unknown word, that I could just highlight it with my mouse, press a button, and have another window 
 on the screen that would instantly show the word-by-word translation.
 
-This program has a key listener that waits for a key press (in my case the left alt key) Once pressed, 
-the highlighted text on the screen will be copied, error-checked(filtered), and translated. I like having
-multiple translations for extra context because as we all know translating isn't always black and white
+This program has a key listener that waits for a key press (in my case the left alt key) Once pressed, the highlighted text on the screen will be copied, error-checked(filtered), and translated. I like having multiple translations for extra context because translating isn't always black and white
 
 One translation will be pulled using the google translate package, and for other translations, 
 I acquire by web scraping a chinese dictionary that I like (yabla). The program can be adapted
@@ -30,7 +27,7 @@ through the settings.py file in the app module
 
 
 
-DEPENDENCIES AND STYSTEM REQUIREMENTS
+STYSTEM REQUIREMENTS/INSTALL
 
 As of now I can only guarantee that the program will run on Windows, provided python3 is installed. 
 Because of the key logging functionality, I haven't been able to get everything to work out of the 
@@ -43,5 +40,8 @@ the program wasn't logging the keys. I'm going to keep working on that But I hav
 - Create a virtual environment and run python -m pip install -r requirements.txt
 - Manually run python -m pip install pynput and python -m pip install lxml
 
-If someone theoretically wanted to install the program, I wrote a series of batch scripts to automate setting up the project. If the user already had python3 installed on a windows machine everything could theoretically be set up in less than 5 minutes. Simply pull the
-code from GitHub and double click the install.bat file. When it's done running, a terminal window inside the activated virtual environment will be on the screen, and all you have to do is type in install2 in the cmd. After that it will install all dependencies and run the program automatically.
+If someone theoretically wanted to install the program, I wrote a series of small batch scripts to automate setting up the project. If the user already had python3 installed on a windows machine everything could theoretically be set up in less than 5 minutes. Simply pull the
+code from GitHub and double click the install.bat file. When it's done running, a terminal window inside the activated virtual environment will be on the screen, and all you have to do is type in "install2" in the cmd. Don't touch install1.bat file. After that it will install all dependencies and run the program automatically.
+
+
+Tl;dr : Download code on Windows environment with python3 installed. Click install.bat; when it finishes, type "install2" in terminal window that pops up. When finished, highlight chinese text above and press left alt key.
