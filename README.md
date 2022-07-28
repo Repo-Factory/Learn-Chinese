@@ -49,7 +49,9 @@ the program wasn't logging the keys. I'm going to keep working on that But I hav
 - Manually run python -m pip install pynput and python -m pip install lxml
 
 
-I wrote a series of small batch scripts to automate setting up the project. If the user already had python3 installed on a windows machine everything could theoretically be set up in less than 5 minutes. To install run 
+I wrote a series of small batch scripts to automate setting up the project. If the user already had python3 installed on a windows machine everything could theoretically be set up in less than 5 minutes. If needed, [download python](https://www.python.org/downloads/) here.
+
+Then to install run 
 
 ```git clone https://github.com/Repo-Factory/Learn-Chinese.git .```
 
@@ -61,4 +63,4 @@ and then run the
  
  ```install2```
  
-  in the cmd. Don't touch install1.bat file. After that it will install all dependencies and run the program automatically.
+  in the cmd. Don't touch install1.bat file. After that it will install all dependencies and run the program automatically in about 20 seconds.
