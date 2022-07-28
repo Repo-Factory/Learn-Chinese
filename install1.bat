@@ -1,10 +1,13 @@
 @echo off
 
-echo starting install of chinese learning tool...
+echo Starting install of chinese learning tool...
 
-echo creating fresh virtual environment...
+echo .
 
-rmdir /s env
+echo Creating fresh virtual environment...
+
+echo .
+
 python -m venv env
 .\env\scripts\activate
 
