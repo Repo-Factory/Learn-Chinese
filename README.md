@@ -3,8 +3,14 @@
     #                           我喜歡這個味道
 
 
-On Screen Translator - Chinese Learning Assistance Tool
+# On Screen Translator - Chinese Learning Assistance Tool
 
+
+![alt text](https://user-images.githubusercontent.com/108435248/181639071-2ca86f9e-eee8-4ef9-b45f-ba0f6600eeb4.png "Word-By-Word Translation")
+
+
+
+## Introduction ##
 
 欢迎光临! [ 'welcome' for those who haven't used this app ;) ] This is an app designed to assist language studentsin learning chinese (that could also be easily adapted for another language). 
 
@@ -18,6 +24,9 @@ That's why I made this language-learning tool... I thought it would be cool if e
 unknown word, that I could just highlight it with my mouse, press a button, and have another window 
 on the screen that would instantly show the word-by-word translation.
 
+
+## Description ##
+
 This program has a key listener that waits for a key press (in my case the left alt key) Once pressed, the highlighted text on the screen will be copied, error-checked(filtered), and translated. I like having multiple translations for extra context because translating isn't always black and white
 
 One translation will be pulled using the google translate package, and for other translations, 
@@ -26,8 +35,7 @@ to scrape from other chinese databases, and the number of desired translations c
 through the settings.py file in the app module
 
 
-
-STYSTEM REQUIREMENTS/INSTALL
+## Setup Requirements/ Install ##
 
 As of now I can only guarantee that the program will run on Windows, provided python3 is installed. 
 Because of the key logging functionality, I haven't been able to get everything to work out of the 
@@ -36,12 +44,21 @@ but there are some setup requirements. Even after getting an X server properly r
 the program wasn't logging the keys. I'm going to keep working on that But I have proven that but the program works following these steps:
 
 - Have python3 installed without issues on a Windows computer
-- Create new directory and copy in app.py as well as the files in the root directory of this project
+- Git clone project
 - Create a virtual environment and run python -m pip install -r requirements.txt
 - Manually run python -m pip install pynput and python -m pip install lxml
 
-If someone theoretically wanted to install the program, I wrote a series of small batch scripts to automate setting up the project. If the user already had python3 installed on a windows machine everything could theoretically be set up in less than 5 minutes. Simply pull the
-code from GitHub and double click the install.bat file. When it's done running, a terminal window inside the activated virtual environment will be on the screen, and all you have to do is type in "install2" in the cmd. Don't touch install1.bat file. After that it will install all dependencies and run the program automatically.
 
+I wrote a series of small batch scripts to automate setting up the project. If the user already had python3 installed on a windows machine everything could theoretically be set up in less than 5 minutes. To install run 
 
-Tl;dr : Download code on Windows environment with python3 installed. Click install.bat; when it finishes, type "install2" in terminal window that pops up. When finished, highlight chinese text above and press left alt key.
+```git clone https://github.com/Repo-Factory/Learn-Chinese.git .```
+
+and then run the 
+
+```install.bat```
+
+ file. When it's done running, a terminal window inside the activated virtual environment will be on the screen, and all you have to do is type in
+ 
+ ```install2```
+ 
+  in the cmd. Don't touch install1.bat file. After that it will install all dependencies and run the program automatically.
