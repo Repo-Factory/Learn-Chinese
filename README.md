@@ -53,14 +53,14 @@ I wrote a series of small batch scripts to automate setting up the project. If t
 
 Then to install run 
 
-```git clone https://github.com/Repo-Factory/Learn-Chinese.git .```
+    git clone https://github.com/Repo-Factory/Learn-Chinese.git .
 
 and then run the 
 
-```install.bat```
+    install.bat
 
  file. When it's done running, a terminal window inside the activated virtual environment will be on the screen, and all you have to do is type in
  
- ```install2```
+    install2
  
   in the cmd. Don't touch install1.bat file. After that it will install all dependencies and run the program automatically in about 20 seconds.
